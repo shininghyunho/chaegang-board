@@ -1,19 +1,48 @@
-plugins {
-    id 'java'
+buildscript {
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group 'com.shininghyunho'
-version '1.0-SNAPSHOT'
+// 버전에 날짜 추가해줌
+version '1.0.1-SNAPSHOT'+new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-}
-
-test {
-    useJUnitPlatform()
+    // web
+    compile('org.springframework.boot:spring-boot-starter-web')
+    // lombok
+    compile('org.projectlombok:lombok')
+    // JPA
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    // 내장 DB
+    compile('com.h2database:h2')
+    // mustache
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+    // oauth2
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    // session
+    compile('org.springframework.session:spring-session-jdbc')
+    // MariaDB
+    compile("org.mariadb.jdbc:mariadb-java-client")
+    // test security
+    testCompile('org.springframework.security:spring-security-test')
+    // test starter
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
