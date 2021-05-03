@@ -1,7 +1,7 @@
 package com.shininghyunho.board.controller;
 
 import com.shininghyunho.board.controller.dto.PostsSaveRequestDto;
-import com.shininghyunho.board.service.PostsService;
+import com.shininghyunho.board.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
