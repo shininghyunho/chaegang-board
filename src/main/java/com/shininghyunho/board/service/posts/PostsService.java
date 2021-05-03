@@ -1,7 +1,9 @@
 package com.shininghyunho.board.service.posts;
 
 import com.shininghyunho.board.controller.dto.PostsListResponseDto;
+import com.shininghyunho.board.controller.dto.PostsResponseDto;
 import com.shininghyunho.board.controller.dto.PostsSaveRequestDto;
+import com.shininghyunho.board.controller.dto.PostsUpdateRequestDto;
 import com.shininghyunho.board.domain.post.Posts;
 import com.shininghyunho.board.domain.post.PostsRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,21 @@ public class PostsService {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
+    @Transactional
+    public Long update(Long id, PostsUpdateRequestDto requestDto){
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("id에 해당하는 게시글이 없습니다. id :"+id));
+        entity.update(requestDto.getTitle(),requestDto.getContent());
+        return id;
+    }
+
+    @Transactional
+    public void delete(Long id){
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("id에 해당하는 게시글이 없습니다. id :"+id));
+        postsRepository.delete(entity);
+    }
+
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream()
@@ -28,4 +45,10 @@ public class PostsService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public PostsResponseDto findById(Long id){
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("id에 해당하는 게시글이 없습니다. id :"+id));
+        return new PostsResponseDto(entity);
+    }
 }
