@@ -41,8 +41,8 @@ dependencies {
     compile('org.springframework.session:spring-session-jdbc')
     // MariaDB
     compile("org.mariadb.jdbc:mariadb-java-client")
-    // test security
-    //testCompile('org.springframework.security:spring-security-test')
+    // test security (권한을 필요한 api 호출을 위한)
+    testCompile('org.springframework.security:spring-security-test')
     // test starter
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
