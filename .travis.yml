@@ -21,3 +21,19 @@ notifications:
   email:
     recipients:
       - gusgh3315@gmail.com
+
+before_deploy:
+  - zip -r chaegang-board *
+  - mkdir -p deploy
+  - mv chaegang-board.zip deploy/chaegang-board.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # traivs 에 설정한 값
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: chaegang-board-build # s3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private
+    local_dir: deploy # before_deploy 에서 생성한 디렉토리
+    wait-until-deployed: true
