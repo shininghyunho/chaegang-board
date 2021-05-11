@@ -1,5 +1,6 @@
 package com.shininghyunho.board.controller;
 
+import com.shininghyunho.board.config.auth.dto.LoginUser;
 import com.shininghyunho.board.config.auth.dto.SessionUser;
 import com.shininghyunho.board.controller.dto.PostsResponseDto;
 import com.shininghyunho.board.service.posts.PostsService;
@@ -23,12 +24,12 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
 
+    // LoginUser 어노테이션을 통해 세션에서 "user"를 가져옴
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         // posts라는 애트리뷰트 추가해서 넘겨줌
         model.addAttribute("posts",postsService.findAllDesc());
 
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if (user!=null){
             model.addAttribute("userName",user.getName());
         }
