@@ -37,7 +37,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mustache')
     // oauth2
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
-    // session
+    // session (session을 독립적으로 저장)
     compile('org.springframework.session:spring-session-jdbc')
     // MariaDB
     compile("org.mariadb.jdbc:mariadb-java-client")
