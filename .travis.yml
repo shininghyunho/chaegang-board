@@ -6,6 +6,9 @@ branches:
   only:
     - master
 
+before_install:
+  - chmod +x gradlew # gradlew 실행 권한 추가
+
 # Travis CI 서버의 HOME
 cache:
   directories:
