@@ -1,6 +1,7 @@
-package com.shininghyunho.board.config.auth.dto;
+package com.shininghyunho.board.config.auth;
 
 
+import com.shininghyunho.board.config.auth.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

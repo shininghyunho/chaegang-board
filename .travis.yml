@@ -23,9 +23,13 @@ notifications:
       - gusgh3315@gmail.com
 
 before_deploy:
-  - zip -r chaegang-board *
-  - mkdir -p deploy
-  - mv chaegang-board.zip deploy/chaegang-board.zip
+  - mkdir -p before-deploy # zip에 포함시킬 파일들을 담을 디렉토리
+  - cp scripts/*.sh before-deploy/
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && zip -r before-deploy * # before-deploy 압축
+  - cd ../ && mkdir -p deploy # deploy 생성
+  - mv before-deploy/before-deploy.zip deploy/chaegang-board.zip # deploy로 zip파일 이동
 
 deploy:
   - provider: s3
@@ -36,4 +40,14 @@ deploy:
     skip_cleanup: true
     acl: private # zip 파일 접근을 private
     local_dir: deploy # before_deploy 에서 생성한 디렉토리
+    wait-until-deployed: true
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: chaegang-board-build
+    key: chaegang-board.zip # 빌드 파일을 압축해서 전달
+    bundle_type: zip # 압축 확장자
+    application: chaegang-board # codedeploy 애플리케이션
+    deployment_group: chaegang-board-group # codedeploy 배포 그룹
+    region: ap-northeast-2
     wait-until-deployed: true

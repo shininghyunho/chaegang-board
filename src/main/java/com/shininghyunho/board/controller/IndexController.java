@@ -1,6 +1,6 @@
 package com.shininghyunho.board.controller;
 
-import com.shininghyunho.board.config.auth.dto.LoginUser;
+import com.shininghyunho.board.config.auth.LoginUser;
 import com.shininghyunho.board.config.auth.dto.SessionUser;
 import com.shininghyunho.board.controller.dto.PostsResponseDto;
 import com.shininghyunho.board.service.posts.PostsService;

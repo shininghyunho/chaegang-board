@@ -1,6 +1,6 @@
 package com.shininghyunho.board.config;
 
-import com.shininghyunho.board.config.auth.dto.LoginUserArgumentResolver;
+import com.shininghyunho.board.config.auth.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

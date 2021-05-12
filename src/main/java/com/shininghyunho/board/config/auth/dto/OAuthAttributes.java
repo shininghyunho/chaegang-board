@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Map;
 
 @Slf4j

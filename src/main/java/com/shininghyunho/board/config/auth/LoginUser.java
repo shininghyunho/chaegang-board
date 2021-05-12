@@ -1,4 +1,4 @@
-package com.shininghyunho.board.config.auth.dto;
+package com.shininghyunho.board.config.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
