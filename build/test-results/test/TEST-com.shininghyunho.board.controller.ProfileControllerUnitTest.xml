@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.shininghyunho.board.controller.ProfileControllerUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-12T05:46:52" hostname="DESKTOP-9IJG3VI" time="0.115">
+  <properties/>
+  <testcase name="real_profile이_조회된다" classname="com.shininghyunho.board.controller.ProfileControllerUnitTest" time="0.115"/>
+  <system-out><![CDATA[14:46:52.719 [Test worker] DEBUG org.springframework.mock.env.MockEnvironment - Activating profile 'real1'
+14:46:52.723 [Test worker] DEBUG org.springframework.mock.env.MockEnvironment - Activating profile 'oauth'
+14:46:52.723 [Test worker] DEBUG org.springframework.mock.env.MockEnvironment - Activating profile 'real-db'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
