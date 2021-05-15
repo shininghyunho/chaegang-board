@@ -1,4 +1,4 @@
-package com.shininghyunho.board.service.posts;
+package com.shininghyunho.board.service.user;
 
 import com.shininghyunho.board.controller.dto.UserUpdateRequestDto;
 import com.shininghyunho.board.domain.user.User;

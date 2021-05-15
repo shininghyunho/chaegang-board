@@ -1,7 +1,7 @@
 package com.shininghyunho.board.controller;
 
 import com.shininghyunho.board.controller.dto.UserUpdateRequestDto;
-import com.shininghyunho.board.service.posts.UserService;
+import com.shininghyunho.board.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
