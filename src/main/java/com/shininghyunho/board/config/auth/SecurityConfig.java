@@ -19,7 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/","/css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll()
-                    .antMatchers("/api/v1/**").hasRole(Role.USER.name())
+                    .antMatchers("/api/v1/posts/**").hasRole(Role.USER.name())
+                    // 유저 관리는 어드민만
+                    .antMatchers("/api/v1/user/**").hasRole(Role.ADMIN.name())
                     .anyRequest().authenticated()
                 .and()
                     .logout()
