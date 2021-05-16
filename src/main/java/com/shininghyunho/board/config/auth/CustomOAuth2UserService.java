@@ -39,7 +39,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         // OAuth2 로그인 진행시 키가 되는 필드값, pk 역할
         String userNameAttributeName=userRequest.getClientRegistration()
                 .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
-        // Oauth2UserService를 통해 가져온 OAuth2User의 attribute를 담을 클래스
+        // Oauth2UserService 를 통해 가져온 OAuth2User 의 attribute 를 담을 클래스
         OAuthAttributes attributes=OAuthAttributes
                 .of(registrationId,userNameAttributeName,oAuth2User.getAttributes());
 

@@ -19,6 +19,7 @@ public class PostsApiController {
         return postsService.save(requestDto);
     }
 
+    // TODO : 글 작성자만 수정가능하게 변경
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto){
         return postsService.update(id,requestDto);

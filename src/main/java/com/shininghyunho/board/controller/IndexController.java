@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 /*
 * 페이지 표시를 위한 컨트롤러
 * */
+// TODO : 업데이트가 아닌 post view 페이지를 추가해줘야함
 @Slf4j
 @RequiredArgsConstructor
 @Controller

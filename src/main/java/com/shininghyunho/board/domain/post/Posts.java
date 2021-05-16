@@ -1,12 +1,14 @@
 package com.shininghyunho.board.domain.post;
 
 import com.shininghyunho.board.domain.BaseTimeEntity;
+import com.shininghyunho.board.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+// TODO : oauth2 이메일 추가
 @Getter
 @NoArgsConstructor
 @Entity
@@ -22,7 +24,9 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT",nullable = false)
     private String content;
 
-    private String author; // author는 바꿀일이 없기때문에 컬럼 표시 x
+    // TODO : oauth2의 이메일을 author 로 설정해줘야함
+    @Column(nullable = false)
+    private String author; // author 는 바꿀일이 없기때문에 컬럼 표시 x 인데 불러오기 위함
 
     @Builder
     public Posts(String title,String content,String author){

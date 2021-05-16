@@ -40,7 +40,7 @@ public class OAuthAttributes {
         }
     }
 
-    // Google에서 사용자 정보를 받아 저장
+    // Google 에서 사용자 정보를 받아 저장
     private static OAuthAttributes ofGoogle(String userNameAttributeName,Map<String,Object> attributes){
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
