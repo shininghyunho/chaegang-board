@@ -1,5 +1,7 @@
 package com.shininghyunho.board.controller;
 
+import com.shininghyunho.board.config.auth.LoginUser;
+import com.shininghyunho.board.config.auth.dto.SessionUser;
 import com.shininghyunho.board.controller.dto.PostsSaveRequestDto;
 import com.shininghyunho.board.controller.dto.PostsUpdateRequestDto;
 import com.shininghyunho.board.service.posts.PostsService;
@@ -15,8 +17,8 @@ public class PostsApiController {
     private final PostsService postsService;
 
     @PostMapping("/api/v1/posts")
-    public Long save(@RequestBody PostsSaveRequestDto requestDto){
-        return postsService.save(requestDto);
+    public Long save(@RequestBody PostsSaveRequestDto requestDto,@LoginUser SessionUser user){
+        return postsService.save(requestDto, user.getEmail());
     }
 
     // TODO : 글 작성자만 수정가능하게 변경

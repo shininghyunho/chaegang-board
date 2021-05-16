@@ -6,16 +6,16 @@
             <div class = "col-md-6">
                 <a href="/posts/save" role="button" class="btn btn-primary">글 등록하기</a>
                 <!-- 로그인이 되어 userName 이 있을때 -->
-                {{#userName}}
-                    로그인 정보 : <span id="user">{{userName}}</span>
+                {{#loginUserName}}
+                    로그인 정보 : <span id="user">{{loginUserName}}</span>
                     <!-- 스프링 시큐리티에서 기본으로 제공된 logout -->
                     <a href="/logout" class="btn btn-info active" role="button">로그아웃</a>
-                {{/userName}}
+                {{/loginUserName}}
                 <!-- 로그인이 되지않아 userName 이 없을때 -->
-                {{^userName}}
+                {{^loginUserName}}
                     <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">구글 로그인</a>
                     <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">네이버 로그인</a>
-                {{/userName}}
+                {{/loginUserName}}
             </div>
         </div>
         <br>

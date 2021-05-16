@@ -24,7 +24,6 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT",nullable = false)
     private String content;
 
-    // TODO : oauth2의 이메일을 author 로 설정해줘야함
     @Column(nullable = false)
     private String author; // author 는 바꿀일이 없기때문에 컬럼 표시 x 인데 불러오기 위함
 
