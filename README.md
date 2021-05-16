@@ -1,7 +1,7 @@
 # 스프링 부트를 활용한 게시판
 ## [메인 페이지](http://ec2-15-165-143-80.ap-northeast-2.compute.amazonaws.com/)
 ## 사용 스택
-### 구현https://github.com/shininghyunho/chaegang-board/wiki
+### 구현
 - spring-boot
 - jpa
 - mustache (프론트엔드)
