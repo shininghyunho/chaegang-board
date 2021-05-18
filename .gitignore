@@ -2,3 +2,7 @@
 /.gradle/
 .idea
 application-oauth.properties
+
+# ssh
+chaegang-board.pem
+chaegang-board.ppk

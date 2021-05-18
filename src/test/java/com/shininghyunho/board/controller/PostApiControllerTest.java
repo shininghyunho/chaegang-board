@@ -1,10 +1,15 @@
 package com.shininghyunho.board.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shininghyunho.board.config.auth.LoginUser;
+import com.shininghyunho.board.config.auth.dto.SessionUser;
 import com.shininghyunho.board.controller.dto.PostsSaveRequestDto;
 import com.shininghyunho.board.controller.dto.PostsUpdateRequestDto;
 import com.shininghyunho.board.domain.post.Posts;
 import com.shininghyunho.board.domain.post.PostsRepository;
+import com.shininghyunho.board.domain.user.Role;
+import com.shininghyunho.board.domain.user.User;
+import lombok.RequiredArgsConstructor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +21,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,6 +30,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -32,6 +39,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RequiredArgsConstructor
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostApiControllerTest {
@@ -47,14 +55,26 @@ public class PostApiControllerTest {
     @Autowired
     private WebApplicationContext context;
 
-    private MockMvc mvc;
+    private MockHttpSession session;
 
+    private MockMvc mvc;
+    
+    private User user;
     @Before
     public void setup(){
         mvc= MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+        // session 에 user 추가하기
+        user = User.builder()
+                .name("name")
+                .email("email")
+                .picture("picture")
+                .role(Role.USER)
+                .build();
+        session = new MockHttpSession();
+        session.setAttribute("user",new SessionUser(user));
     }
 
     @After
@@ -79,6 +99,7 @@ public class PostApiControllerTest {
         // when
         //ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url,requestDto,Long.class);
         mvc.perform(post(url)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
@@ -90,6 +111,8 @@ public class PostApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
+        // author 와 등록한 user 에 email 이 같은지
+        assertThat(all.get(0).getAuthor()).isEqualTo(user.getEmail());
     }
 
     @Test

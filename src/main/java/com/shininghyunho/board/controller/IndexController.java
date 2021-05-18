@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 
     private final PostsService postsService;
-    private final HttpSession httpSession;
 
     // LoginUser 어노테이션을 통해 세션에서 "user"를 가져옴
     @GetMapping("/")
