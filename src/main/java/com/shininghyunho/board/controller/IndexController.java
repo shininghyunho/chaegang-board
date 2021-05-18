@@ -37,15 +37,22 @@ public class IndexController {
     }
 
     @GetMapping("/posts/save")
-    public String postsSave(){
+    public String postsSave(Model model, @LoginUser SessionUser user){
+        if(user!=null){
+            model.addAttribute("loginUserEmail",user.getEmail());
+        }
         return "posts-save";
     }
 
     @GetMapping("/posts/update/{id}")
-    public String postUpdate(@PathVariable Long id,Model model){
+    public String postUpdate(@PathVariable Long id,Model model,@LoginUser SessionUser user){
         PostsResponseDto dto = postsService.findById(id);
         // posts라는 애트리뷰트 추가해서 넘겨줌
         model.addAttribute("post",dto);
+        // 작성자의 게시글인지 체크
+        if (dto.getAuthor().equals(user.getEmail())){
+            model.addAttribute("isAuthor","");
+        }
         return "posts-update";
     }
 }

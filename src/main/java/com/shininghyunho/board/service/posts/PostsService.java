@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -31,10 +32,14 @@ public class PostsService {
     }
 
     @Transactional
-    public Long update(Long id, PostsUpdateRequestDto requestDto){
+    public Long update(Long id, PostsUpdateRequestDto requestDto,String author){
         Posts entity = postsRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("id에 해당하는 게시글이 없습니다. id :"+id));
-        entity.update(requestDto.getTitle(),requestDto.getContent());
+        // 작성자가 같을때만 update
+        if (Objects.equals(entity.getAuthor(), author)){
+            entity.update(requestDto.getTitle(),requestDto.getContent());
+        }
+        // TODO : 작성자와 로그인한 이메일이 다를떄 어떻게 반응하지
         return id;
     }
 

@@ -91,7 +91,6 @@ public class PostApiControllerTest {
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("author")
                 .build();
 
         String url = "http://localhost:"+port+"/api/v1/posts";
@@ -122,7 +121,7 @@ public class PostApiControllerTest {
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .author("author")
+                .author("email")
                 .build());
 
         Long updateId = savedPosts.getId();
@@ -137,6 +136,7 @@ public class PostApiControllerTest {
         String url = "http://localhost:"+port+"/api/v1/posts/"+updateId;
 
         mvc.perform(put(url)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());

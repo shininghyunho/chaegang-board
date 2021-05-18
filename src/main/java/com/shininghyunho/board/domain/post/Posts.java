@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-// TODO : oauth2 이메일 추가
 @Getter
 @NoArgsConstructor
 @Entity

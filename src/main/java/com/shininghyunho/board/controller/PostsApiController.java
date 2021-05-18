@@ -23,8 +23,8 @@ public class PostsApiController {
 
     // TODO : 글 작성자만 수정가능하게 변경
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto){
-        return postsService.update(id,requestDto);
+    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto,@LoginUser SessionUser user){
+        return postsService.update(id,requestDto,user.getEmail());
     }
 
     @DeleteMapping("/api/v1/posts/{id}")

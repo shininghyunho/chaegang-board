@@ -1,5 +1,5 @@
 {{>layout/header}}
-<h1> 카페 글 수정하기 </h1>
+<h1> 카페 글 상세히 보기 </h1>
 
 <div class="col-md-12">
     <div class="col-md-4">
@@ -22,9 +22,11 @@
             </div>
         </form>
         <!-- button js 등록 -->
-        <button type="button" class="btn btn-primary" id="btn-update">수정하기</button>
-        <button type="button" class="btn btn-danger" id="btn-delete">삭제하기</button>
-        <a href="/" role="button" class="btn btn-secondary">취소하기</a>
+        {{#isAuthor}}
+            <button type="button" class="btn btn-primary" id="btn-update">수정하기</button>
+            <button type="button" class="btn btn-danger" id="btn-delete">삭제하기</button>
+        {{/isAuthor}}
+        <a href="/" role="button" class="btn btn-secondary">뒤로가기</a>
     </div>
 </div>
 {{>layout/footer}}
