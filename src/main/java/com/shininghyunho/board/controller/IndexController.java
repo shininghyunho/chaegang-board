@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 
 /*
 * 페이지 표시를 위한 컨트롤러
@@ -44,15 +45,18 @@ public class IndexController {
         return "posts-save";
     }
 
-    @GetMapping("/posts/update/{id}")
-    public String postUpdate(@PathVariable Long id,Model model,@LoginUser SessionUser user){
+    @GetMapping("/posts/{id}")
+    public String postViewAndUpdate(@PathVariable Long id,Model model,@LoginUser SessionUser user){
         PostsResponseDto dto = postsService.findById(id);
-        // posts라는 애트리뷰트 추가해서 넘겨줌
+        // posts 라는 애트리뷰트 추가해서 넘겨줌
         model.addAttribute("post",dto);
-        // 작성자의 게시글인지 체크
-        if (dto.getAuthor().equals(user.getEmail())){
-            model.addAttribute("isAuthor","");
+        // 로그인한 유저 중에서
+        if (user != null){
+            // 저자인지 체크
+            if (dto.getAuthor().equals(user.getEmail())){
+                return "posts-update";
+            }
         }
-        return "posts-update";
+        return "posts-view";
     }
 }

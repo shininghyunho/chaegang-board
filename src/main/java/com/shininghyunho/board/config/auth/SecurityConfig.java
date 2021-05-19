@@ -22,6 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/v1/posts/**").hasRole(Role.USER.name())
                     // 유저 관리는 어드민만
                     .antMatchers("/api/v1/user/**").hasRole(Role.ADMIN.name())
+                    // 게시글 뷰에 접근은 누구나 가능 (api 호출은 권한이 있어야함)
+                    .antMatchers("/posts/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .logout()
