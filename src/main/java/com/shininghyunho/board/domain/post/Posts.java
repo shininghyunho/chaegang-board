@@ -26,6 +26,9 @@ public class Posts extends BaseTimeEntity {
     @Column(nullable = false)
     private String author; // author 는 바꿀일이 없기때문에 컬럼 표시 x 인데 불러오기 위함
 
+    @Column(nullable = false)
+    private Long views;
+
     @Builder
     public Posts(String title,String content,String author){
         this.title=title;
@@ -36,5 +39,15 @@ public class Posts extends BaseTimeEntity {
     public void update(String title,String content){
         this.title=title;
         this.content=content;
+    }
+
+    public void addViews(){
+        this.views+=1;
+    }
+
+    // 영속성 등록전 확인 (views 가 null 이 되지않게끔)
+    @PrePersist
+    public void prePersist(){
+        this.views=(this.views==null)?0:this.views;
     }
 }

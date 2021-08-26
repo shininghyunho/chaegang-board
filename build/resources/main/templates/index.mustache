@@ -27,10 +27,12 @@
                     <th>제목</th>
                     <th>작성자</th>
                     <th>최종수정일</th>
+                    <th>조회수</th>
                 </tr>
             </thead>
             <tbody id="tbody">
             <!-- posts라는 List 순회 -->
+            <!-- TODO : 전체가 아닌 페이지 단위로만 받아와야함 -->
             {{#posts}}
                 <tr>
                     <td>{{id}}</td>
@@ -38,6 +40,7 @@
                     <td><a href="/posts/{{id}}">{{title}}</a></td>
                     <td>{{author}}</td>
                     <td>{{modifiedDate}}</td>
+                    <td>{{views}}</td>
                 </tr>
             {{/posts}}
             </tbody>
