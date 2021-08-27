@@ -30,7 +30,7 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RequiredArgsConstructor
@@ -85,7 +85,7 @@ public class IndexControllerTest {
 
     @Test
     @WithMockUser(roles="USER")
-    public void 조회수증가() throws Exception{
+    public void 조회수() throws Exception{
         // given
         String title="title";
         String content="content";
@@ -105,12 +105,14 @@ public class IndexControllerTest {
         List<Posts> all = postsRepository.findAll();
         Long beforeViews = all.get(0).getViews();
         // 1번째 글 get
-        this.restTemplate.getForObject("/posts/1",String.class);
-
+        //this.restTemplate.getForObject("/posts/1",String.class);
+        mvc.perform(get("http://localhost:"+port+"/api/v1/posts/1"));
         // then
         all = postsRepository.findAll();
         Long afterViews = all.get(0).getViews();
-        assertThat(beforeViews+1).isEqualTo(afterViews);
+        assertThat(beforeViews)
+                .as("등록자는 조회수가 증가하지 않음")
+                .isEqualTo(afterViews);
         System.out.println("before views : "+beforeViews);
         System.out.println("after views : "+afterViews);
     }
