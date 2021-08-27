@@ -7,6 +7,7 @@ import com.shininghyunho.board.domain.post.Posts;
 import com.shininghyunho.board.domain.post.PostsRepository;
 import com.shininghyunho.board.domain.user.Role;
 import com.shininghyunho.board.domain.user.User;
+import lombok.RequiredArgsConstructor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RequiredArgsConstructor
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IndexControllerTest {
@@ -103,12 +105,12 @@ public class IndexControllerTest {
         List<Posts> all = postsRepository.findAll();
         Long beforeViews = all.get(0).getViews();
         // 1번째 글 get
-        String body = this.restTemplate.getForObject("/posts/1",String.class);
+        this.restTemplate.getForObject("/posts/1",String.class);
 
         // then
         all = postsRepository.findAll();
         Long afterViews = all.get(0).getViews();
-        assertThat(beforeViews+1).as("조회수 증가 확인").isEqualTo(afterViews);
+        assertThat(beforeViews+1).isEqualTo(afterViews);
         System.out.println("before views : "+beforeViews);
         System.out.println("after views : "+afterViews);
     }
