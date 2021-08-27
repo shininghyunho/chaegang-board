@@ -63,4 +63,11 @@ public class PostsService {
                 .orElseThrow(()->new IllegalArgumentException("id에 해당하는 게시글이 없습니다. id :"+id));
         return new PostsResponseDto(entity);
     }
+
+    @Transactional
+    public void addViews(Long id){
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("id에 해당하는 게시글이 없습니다. id : "+id));
+        entity.addViews();
+    }
 }

@@ -17,7 +17,6 @@ import javax.validation.constraints.Null;
 /*
 * 페이지 표시를 위한 컨트롤러
 * */
-// TODO : 업데이트가 아닌 post view 페이지를 추가해줘야함
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -45,18 +44,20 @@ public class IndexController {
         return "posts-save";
     }
 
+    // TODO : 조회수 증가 테스트코드 작성해야함
     @GetMapping("/posts/{id}")
     public String postViewAndUpdate(@PathVariable Long id,Model model,@LoginUser SessionUser user){
         PostsResponseDto dto = postsService.findById(id);
-        // posts 라는 애트리뷰트 추가해서 넘겨줌
-        model.addAttribute("post",dto);
-        // 로그인한 유저 중에서
-        if (user != null){
-            // 저자인지 체크
-            if (dto.getAuthor().equals(user.getEmail())){
-                return "posts-update";
-            }
+
+        // 로그인한 유저와 게시글 유저가 동일하면 업데이트 뷰 제공
+        if (user!=null && dto.getAuthor().equals(user.getEmail())){
+            model.addAttribute("post",dto);
+            return "posts-update";
         }
-        return "posts-view";
+        else{
+            postsService.addViews(id); // 조회수 +1
+            model.addAttribute("post",dto);
+            return "posts-view";
+        }
     }
 }
