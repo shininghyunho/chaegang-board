@@ -11,6 +11,9 @@ var main={
         $('#btn-delete').on('click',function(){
             _this.delete();
         });
+        $('#btn-updateView').on('click',function(){
+            _this.updateView();
+        })
     },
     save : function(){
         var data={
@@ -66,6 +69,10 @@ var main={
         }).fail(function(error){
             alert(JSON.stringify(error));
         })
+    },
+    updateView : function(){
+        var id = $('#id').val();
+        window.location.href='/posts/update/'+id;
     }
 };
 

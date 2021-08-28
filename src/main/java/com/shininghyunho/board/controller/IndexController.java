@@ -44,20 +44,25 @@ public class IndexController {
         return "posts-save";
     }
 
-    // TODO : 조회수 증가 테스트코드 작성해야함
     @GetMapping("/posts/{id}")
-    public String postViewAndUpdate(@PathVariable Long id,Model model,@LoginUser SessionUser user){
+    public String postView(@PathVariable Long id,Model model,@LoginUser SessionUser user){
         PostsResponseDto dto = postsService.findById(id);
 
-        // 로그인한 유저와 게시글 유저가 동일하면 업데이트 뷰 제공
         if (user!=null && dto.getAuthor().equals(user.getEmail())){
-            model.addAttribute("post",dto);
-            return "posts-update";
+            model.addAttribute("isLoginUser",true);
         }
         else{
-            postsService.addViews(id); // 조회수 +1
-            model.addAttribute("post",dto);
-            return "posts-view";
+            postsService.addViews(id);
         }
+
+        model.addAttribute("post",dto);
+        return "posts-view";
+    }
+
+    @GetMapping("/posts/update/{id}")
+    public String updateView(@PathVariable Long id,Model model,@LoginUser SessionUser user){
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("post",dto);
+        return "posts-update";
     }
 }

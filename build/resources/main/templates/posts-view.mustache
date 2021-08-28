@@ -23,6 +23,18 @@
         </form>
         <!-- button js 등록 -->
         <a href="/" role="button" class="btn btn-secondary">뒤로가기</a>
+        {{#isLoginUser}}
+            <button type="button" class="btn btn-warning" id="btn-updateView">수정하기</button>
+        {{/isLoginUser}}
+        <!-- comment -->
+        <script src="https://utteranc.es/client.js"
+                repo="shininghyunho/chaegang-comments"
+                issue-term="pathname"
+                label="comment"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
     </div>
 </div>
 {{>layout/footer}}
